@@ -3,35 +3,45 @@ import Router from 'next/router';
 import Link from 'next/link';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { context } from '../components/context';
+import Loading from '../components/loading';
 
 export default function CreateAccount() {
   const { user, authenticationLoading, createAccount, googleSignIn } = context();
   const [error, setError] = useState(false);
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   if (user) Router.push('/');
 
+  const usernameRef         = useRef()
   const emailRef            = useRef();
   const passwordRef         = useRef();
   const confirmPasswordRef  = useRef();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+    setButtonDisable(true);
+
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setError('Passwords do not match');
     }
 
-    const result = await createAccount(emailRef.current.value, passwordRef.current.value);
+    const result = await createAccount(
+      usernameRef.current.value, 
+      emailRef.current.value, 
+      passwordRef.current.value
+    );
     
     if (result.error) {
       setError(result.data);
     } else {
       setError();
     }
+    setButtonDisable(false);
   }
 
   async function handleGoogleSubmit(e) {
     e.preventDefault();
+    setButtonDisable(true);
 
     const result = await googleSignIn();
     
@@ -40,21 +50,24 @@ export default function CreateAccount() {
     } else {
       setError();
     }
+    setButtonDisable(false);
   }
 
   return (
     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "60vh" }}>
       {
         authenticationLoading || user ? (
-          <div className="w-100" style={{ maxWidth: "400px"}}>
-            <h1 className="text-center">Loading</h1>
-          </div>
+          <Loading></Loading>
         ) : (
           <div className="w-100" style={{ maxWidth: "400px"}}>
             <Card>
               <Card.Body>
                 <h2 className="text-center mb-4">Create An Account</h2>
                 <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-4" id="username">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="username" ref={usernameRef} autoComplete="username" required></Form.Control>
+                  </Form.Group>
                   <Form.Group className="mb-4" id="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" ref={emailRef} autoComplete="email" required></Form.Control>
@@ -68,9 +81,9 @@ export default function CreateAccount() {
                     <Form.Control type="password" ref={confirmPasswordRef} autoComplete="new-password" required></Form.Control>
                   </Form.Group>
                   {error ? <Alert variant="danger">{error}</Alert> : null}
-                  <Button className="w-100" type="submit">Sign Up</Button>
+                  <Button className="w-100" type="submit" disabled={buttonDisable}>Sign Up</Button>
                 </Form>
-                <Button className="w-100" onClick={handleGoogleSubmit}>Sign In With Google</Button>
+                <Button className="w-100" onClick={handleGoogleSubmit} disabled={buttonDisable}>Sign In With Google</Button>
               </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">

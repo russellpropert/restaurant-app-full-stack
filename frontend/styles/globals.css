@@ -47,17 +47,16 @@ a {
 }
 
 .description {
-  margin: 4rem 0;
+  margin: 2rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
 }
 
 .grid {
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
 }
 
 .custom-card {
@@ -93,7 +92,6 @@ a {
 @media (max-width: 600px) {
   .grid {
     width: 100%;
-    flex-direction: column;
   }
 }
 
