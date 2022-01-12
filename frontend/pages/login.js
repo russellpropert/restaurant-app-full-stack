@@ -3,10 +3,12 @@ import Router from 'next/router';
 import Link from 'next/link';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { context } from '../components/context';
+import Loading from '../components/loading';
 
 export default function Login() {
   const { user, authenticationLoading, login, googleSignIn } = context();
   const [error, setError] = useState(false);
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   if (user) Router.push('/');
 
@@ -15,6 +17,7 @@ export default function Login() {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
+    setButtonDisable(true);
 
     const result = await login(emailRef.current.value, passwordRef.current.value);
     
@@ -23,10 +26,12 @@ export default function Login() {
     } else {
       setError();
     }
+    setButtonDisable(false);
   }
 
   async function handleGoogleSubmit(e) {
     e.preventDefault();
+    setButtonDisable(true);
 
     const result = await googleSignIn();
     
@@ -35,15 +40,14 @@ export default function Login() {
     } else {
       setError();
     }
+    setButtonDisable(false);
   }
 
   return (
     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "60vh" }}>
       {
         authenticationLoading || user ? (
-          <div className="w-100" style={{ maxWidth: "400px"}}>
-            <h1 className="text-center">Loading</h1>
-          </div>
+          <Loading></Loading>
         ) : (
           <div className="w-100" style={{ maxWidth: "400px"}}>
             <Card>
@@ -59,9 +63,9 @@ export default function Login() {
                     <Form.Control type="password" ref={passwordRef} autoComplete="new-password" required></Form.Control>
                   </Form.Group>
                   {error ? <Alert variant="danger">{error}</Alert> : null}
-                  <Button className="w-100" type="submit">Login</Button>
+                  <Button className="w-100" type="submit" disabled={buttonDisable}>Login</Button>
                 </Form>
-                <Button className="w-100" onClick={handleGoogleSubmit}>Sign In With Google</Button>
+                <Button className="w-100" onClick={handleGoogleSubmit} disabled={buttonDisable}>Sign In With Google</Button>
               </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">

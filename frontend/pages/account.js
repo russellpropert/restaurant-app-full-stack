@@ -1,5 +1,7 @@
 export default function Account() {
   return (
-    <h1 style={{ textAlign: 'center' }}>Account Page</h1>
+    <main className='main'>
+      <h1 className="title">Account Page</h1>
+    </main>
   );
 }

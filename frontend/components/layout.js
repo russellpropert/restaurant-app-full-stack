@@ -26,7 +26,7 @@ export default function Layout({ children }) {
   return (
     <Container>
       <Navbar className="mb-4" color="light" light expand="md">
-        <Link href="/"><a>Restaurant App</a></Link>
+        <Link href="/"><a>Restaurant App Home</a></Link>
         <NavbarToggler onClick={() => toggleHandler()} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
@@ -69,7 +69,7 @@ export default function Layout({ children }) {
           </Nav>
         </Collapse>
       </Navbar>
-      <div className={styles.appContainer}>
+      <div className={styles.appContainer} style={{ marginBottom: "40px"}}>
         {children}
       </div>
 
