@@ -21,6 +21,9 @@ export function ContextProvider({ children }) {
   const [restaurantID, setRestaurantID] = useState(false);
   const [cart, setCart] = useState([]);
 
+  // remove cookies for testing.
+  // Cookies.remove('cart');
+
   //// Authentication Section ////
   // set up Firebase Goggle authentication
   const auth = getAuth();
@@ -104,6 +107,7 @@ export function ContextProvider({ children }) {
         Cookies.set('strapiToken', result.data.jwt);
         const userData = JSON.stringify(result.data.user);
         Cookies.set('strapiUser', userData);
+        setUser(result.data.user);
         console.log('Strapi Data: ', result.data);
       })
       .catch(error => {
@@ -127,7 +131,6 @@ export function ContextProvider({ children }) {
         // console.log('User Credential: ', userCredential);
         // const token = credential.accessToken;
         // console.log('Token: ', token);
-        setUser(result.user);
         console.log('Google Data: ', result);
         strapiGoogleAuth(userCredential.accessToken)
         Router.push('/');
@@ -150,6 +153,7 @@ export function ContextProvider({ children }) {
         Cookies.remove('strapiToken');
         Cookies.remove('strapiUser');
         setUser(false);
+        setCart([]);
         Router.push('/');
       })
       .catch((error) => {
@@ -171,10 +175,10 @@ export function ContextProvider({ children }) {
       let newItem = {...item};
       newItem.quantity = 1;
       newCart.push(newItem);
-      console.log('newCart push: ', newCart);
+      console.log('newCart add: ', newCart);
     }
     const cartData = JSON.stringify(newCart);
-    Cookies.set('cart', cartData)
+    Cookies.set(`${user.id}cart`, cartData)
     setCart([...newCart]);
   }
 
@@ -183,12 +187,43 @@ export function ContextProvider({ children }) {
 
   // remove item
   function removeOneFromCart(item) {
+    let newCart = cart;
+    const itemInCart = newCart.find(cartItem => cartItem.id === item.id);
+    if (itemInCart.quantity > 1) {
+      const index = newCart.indexOf(itemInCart);
+      newCart[index].quantity --;
+      console.log('newCart remove: ', newCart);
+    } else {
+      const index = newCart.indexOf(item);
+      newCart.splice(index, 1);
+      console.log('newCart remove: ', newCart);
+    }
+    setCart([...newCart]);
 
+    // update/remove cart cookie
+    const cartData = JSON.stringify(newCart);
+    if (newCart.length === 0) {
+      Cookies.remove(`${user.id}cart`);
+    } else {
+      Cookies.set(`${user.id}cart`, cartData);
+    }
   }
 
   // delete item
-  function deleteAllOfOneItemFromCart() {
+  function deleteAllOfOneItemFromCart(item) {
+    let newCart = cart;
+    const index = newCart.indexOf(item);
+    newCart.splice(index, 1);
+    console.log('newCart delete: ', newCart)
+    setCart([...newCart]);
 
+    // update/remove cart cookie
+    const cartData = JSON.stringify(newCart);
+    if (newCart.length === 0) {
+      Cookies.remove(`${user.id}cart`);
+    } else {
+      Cookies.set(`${user.id}cart`, cartData);
+    }
   }
 
   //// Initial Setup ////
@@ -215,18 +250,21 @@ export function ContextProvider({ children }) {
     const strapiUserDataObject = jsonDataTrue(strapiUserData);
     if (strapiUserDataObject) {
       console.log('Strapi User: ', strapiUserDataObject);
-      setUser(strapiUserDataObject);
+      setUser({...strapiUserDataObject});
     }
 
     setAuthenticationLoading(false);
+  }, []);
 
+  useEffect(() => {
     // get cart data from session cookie
-    const cartData = Cookies.get('cart');
+    console.log('useEffect: ', user.id);
+    const cartData = Cookies.get(`${user.id}cart`);
     const cartDataObject = jsonDataTrue(cartData);
     if (cartDataObject) {
-      setCart(cartDataObject);
+      setCart([...cartDataObject]);
     }
-  }, []);
+  }, [user]);
 
   //// Context Values ////
   const contextValues = {
@@ -239,7 +277,9 @@ export function ContextProvider({ children }) {
     restaurantID,
     changeRestaurantID,
     cart,
-    addOneToCart
+    addOneToCart,
+    removeOneFromCart,
+    deleteAllOfOneItemFromCart
   }
 
   //// Context Provider ////
