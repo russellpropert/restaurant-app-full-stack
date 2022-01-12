@@ -44,16 +44,22 @@ export default function Dishes() {
   if (loading) return <Loading></Loading>
   if (error) return <Error></Error>
   if (data.restaurant.dishes.length < 1) return <NoData data='restaurants'></NoData>
-  console.log('One Dish: ', data.restaurant.dishes[0]);
+
+  console.log('Dishes restaurant dishes: ', data);
+
+  let dishesPlusRestaurant = []
+  for (let i = 0; i < data.restaurant.dishes.length; i++) {
+    dishesPlusRestaurant.push({...data.restaurant.dishes[i], restaurant: data.restaurant.name});
+  }
 
   // filter data with searchQuery
   let dishesData;
   if (searchQuery) {
-    dishesData = data.restaurant.dishes.filter(dish => dish.name.toLowerCase().includes(searchQuery));
+    dishesData = dishesPlusRestaurant.filter(dish => dish.name.toLowerCase().includes(searchQuery));
   } else {
-    dishesData = data.restaurant.dishes;
+    dishesData = dishesPlusRestaurant;
   }
-
+  
   // handle button click on card
   function handleClick(item) {
     addOneToCart(item);

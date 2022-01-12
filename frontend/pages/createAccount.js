@@ -22,6 +22,7 @@ export default function CreateAccount() {
     setButtonDisable(true);
 
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      setButtonDisable(false);
       return setError('Passwords do not match');
     }
 
