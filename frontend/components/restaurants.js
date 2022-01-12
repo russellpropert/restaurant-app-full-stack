@@ -10,7 +10,7 @@ import { context } from './context';
 import Cart from '../components/cart';
 
 export default function Restaurants() {
-  const { changeRestaurantID } = context();
+  const { changeRestaurantID, cart } = context();
   const [searchQuery, setSearchQuery] = useState();
 
   // get restaurant data using GraphQL
