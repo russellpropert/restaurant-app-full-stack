@@ -60,6 +60,9 @@ export default function Layout({ children }) {
                   </DropdownToggle>
                   <DropdownMenu end>
                     <DropdownItem>
+                      <Link href="/"><a>Restaurants</a></Link>
+                    </DropdownItem>
+                    <DropdownItem>
                       <Link href="/cartpage"><a>Cart</a></Link>
                     </DropdownItem>
                     <DropdownItem>

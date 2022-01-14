@@ -108,9 +108,7 @@ export default function CheckoutForm() {
     } else {
       setError('Strapi API error: ', response.statusText);
     }
-
     setProcessing(false);
-
   };
 
   return (   
