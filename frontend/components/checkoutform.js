@@ -116,6 +116,7 @@ export default function CheckoutForm() {
   return (   
     <>
       <Cart type="checkout" />
+
       <div className={`${styles.cartCard} w-100`} style={{ maxWidth: "500px"}}>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-4" id="username">
@@ -130,6 +131,14 @@ export default function CheckoutForm() {
             <Form.Label>State</Form.Label>
             <Form.Control type="text" ref={state} autoComplete="address-level1" required></Form.Control>
           </Form.Group>
+          <p style={{ fontSize: "1rem", textAlign: "center", marginBottom: "10px" }}>
+            This project is in test mode. Do not use a real credit card number. 
+            Enter a series of 424242… for the card, date, CVC, and zip. 
+            The end result will look like this.
+          </p>
+          <p style={{ fontSize: "1.2rem", textAlign: "center", marginBottom: "10px" }}>
+            4242 4242 4242 4242 04/24 242 42424
+          </p>
           <div style={{
             border: "1px solid black", 
             borderRadius: "5px",
