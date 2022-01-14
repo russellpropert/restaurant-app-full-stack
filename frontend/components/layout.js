@@ -26,7 +26,22 @@ export default function Layout({ children }) {
   return (
     <Container>
       <Navbar className="mb-4" color="light" light expand="md">
-        <Link href="/"><a>Restaurant App Home</a></Link>
+        <Link href="/">
+          <a>
+            {
+              authenticationLoading && (
+                <NavItem>
+                  Loading...
+                </NavItem>
+              )
+            }
+            {
+              user && !authenticationLoading ?
+              'Restaurants' :
+              'The Restaurant App'
+            }
+          </a>
+        </Link>
         <NavbarToggler onClick={() => toggleHandler()} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
@@ -38,12 +53,15 @@ export default function Layout({ children }) {
               )
             }
             {
-              ((user) && !authenticationLoading) && (
+              (user && !authenticationLoading) && (
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
                     {user.email}
                   </DropdownToggle>
                   <DropdownMenu end>
+                    <DropdownItem>
+                      <Link href="/cartpage"><a>Cart</a></Link>
+                    </DropdownItem>
                     <DropdownItem>
                       <Link href="/account"><a>Account</a></Link>
                     </DropdownItem>
@@ -59,7 +77,7 @@ export default function Layout({ children }) {
               )
             }
             {
-              ((!user) && !authenticationLoading) && (
+              (!user && !authenticationLoading) && (
                 <>
                   <Link href="/createAccount"><a className="nav-link">Create Account</a></Link>
                   <Link href="/login"><a className="nav-link">Login</a></Link>

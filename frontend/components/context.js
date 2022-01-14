@@ -30,7 +30,7 @@ export function ContextProvider({ children }) {
   const provider = new GoogleAuthProvider();
 
   // set Strapi URL
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+  const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
 
   // create an account
   async function createAccount(username, email, password) {
@@ -226,6 +226,12 @@ export function ContextProvider({ children }) {
     }
   }
 
+  //// Successful Checkout ////
+  function successfulCheckout() {
+    Cookies.remove(`${user.id}cart`);
+    setCart([]);
+  }
+
   //// Initial Setup ////
   // check to see if the variable contains valid JSON data
   function jsonDataTrue(string) {
@@ -258,7 +264,6 @@ export function ContextProvider({ children }) {
 
   useEffect(() => {
     // get cart data from session cookie
-    console.log('useEffect: ', user.id);
     const cartData = Cookies.get(`${user.id}cart`);
     const cartDataObject = jsonDataTrue(cartData);
     if (cartDataObject) {
@@ -279,7 +284,8 @@ export function ContextProvider({ children }) {
     cart,
     addOneToCart,
     removeOneFromCart,
-    deleteAllOfOneItemFromCart
+    deleteAllOfOneItemFromCart,
+    successfulCheckout
   }
 
   //// Context Provider ////
