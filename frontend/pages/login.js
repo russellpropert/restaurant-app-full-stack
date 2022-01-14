@@ -62,7 +62,7 @@ export default function Login() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" ref={passwordRef} autoComplete="new-password" required></Form.Control>
                   </Form.Group>
-                  {error ? <Alert variant="danger">{error}</Alert> : null}
+                  {error && <Alert variant="danger">{error}</Alert>}
                   <Button className="w-100" type="submit" disabled={buttonDisable}>Login</Button>
                 </Form>
                 <Button className="w-100" onClick={handleGoogleSubmit} disabled={buttonDisable}>Sign In With Google</Button>

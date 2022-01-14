@@ -65,7 +65,7 @@ export default function CreateAccount() {
               <Card.Body>
                 <h2 className="text-center mb-4">Create An Account</h2>
                 <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-4" id="username">
+                  <Form.Group className="mb-4" id="username">
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="username" ref={usernameRef} autoComplete="username" required></Form.Control>
                   </Form.Group>
@@ -81,7 +81,7 @@ export default function CreateAccount() {
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control type="password" ref={confirmPasswordRef} autoComplete="new-password" required></Form.Control>
                   </Form.Group>
-                  {error ? <Alert variant="danger">{error}</Alert> : null}
+                  {error && <Alert variant="danger">{error}</Alert>}
                   <Button className="w-100" type="submit" disabled={buttonDisable}>Sign Up</Button>
                 </Form>
                 <Button className="w-100" onClick={handleGoogleSubmit} disabled={buttonDisable}>Sign In With Google</Button>

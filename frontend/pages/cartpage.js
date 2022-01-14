@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { context } from '../components/context';
 import Router from 'next/router'
 import Loading from '../components/loading';
-import AccountCard from "../components/accountcard";
+import Cart from '../components/cart';
 
-export default function Account() {
+export default function CartPage() {
   const { user } = context();
 
   useEffect(() => {
@@ -21,8 +21,8 @@ export default function Account() {
   
   return (
     <main className='main'>
-      <h1 className="title">Account</h1>
-      <AccountCard user={user} />
+      <h1 className="title">Cart</h1>
+      <Cart type='order' />
     </main>
   );
 }

@@ -38,6 +38,7 @@ module.exports = {
       dishes,
       city,
       state,
+      datetime: new Date(),
     });
 
     return order;

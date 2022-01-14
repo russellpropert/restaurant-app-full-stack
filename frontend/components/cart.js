@@ -1,7 +1,9 @@
 import { context } from './context';
+import Link from 'next/link';
 import { Button } from 'react-bootstrap';
+import styles from '../styles/Cart.module.css';
 
-export default function Cart() {
+export default function Cart({ type }) {
   const { cart, addOneToCart, removeOneFromCart, deleteAllOfOneItemFromCart } = context();
 
   let total = 0;
@@ -11,7 +13,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="custom-card" style={{ width: "100%", maxWidth: "500px"}}>
+    <div className={styles.cartCard} style={{ width: "100%", maxWidth: "500px"}}>
       <h2 style={{ textAlign: "center" }}>Your Selections</h2>
       <div>
         {cart.map(item => (
@@ -25,39 +27,46 @@ export default function Cart() {
             </div>
             <div className="d-flex" style={{ marginBottom: "10px"}}>
               <p style={{ fontSize: "1rem" }}>Qty {item.quantity}</p>
-              <p 
-                style={{
-                  fontSize: "1rem",
-                  marginLeft: "16px",
-                  cursor: "pointer",
-                  color: "blue"
-                }} 
-                onClick={() => addOneToCart(item)}
-              >+</p>
-              <p 
-                className="me-auto" 
-                style={{ 
-                  fontSize: "1rem",
-                  marginLeft: "8px",
-                  cursor: "pointer",
-                  color: "blue"
-                }}
-                onClick={() => removeOneFromCart(item)}
-              >-</p>
-              <p 
-                style={{ 
-                  fontSize: "1rem",
-                  cursor: "pointer",
-                  color: "blue"
-                }}
-                onClick={() => deleteAllOfOneItemFromCart(item)}
-              >Delete</p>
+              {
+                type !== 'checkout' && (
+                  <>
+                    <div
+                      className={styles.cartButton}
+                      style={{marginLeft: "16px"}} 
+                      onClick={() => addOneToCart(item)}
+                    >+</div>
+                    <div
+                      className={`${styles.cartButton} me-auto`}
+                      style={{marginLeft: "10px"}}
+                      onClick={() => removeOneFromCart(item)}
+                    >-</div>
+                    <div
+                      className={styles.cartButton}
+                      onClick={() => deleteAllOfOneItemFromCart(item)}
+                    >Delete</div>
+                  </>
+                )
+              }
             </div>
           </div>
         ))}
-      <Button className="w-100">
-        Checkout Total: $ {total}
-      </Button>
+        <h2 style={{ textAlign: "center" }}>Total: $ {total}</h2>
+          {
+            type === 'order' &&
+            <Link href="/checkout">
+              <a>
+                <Button className="w-100">Checkout</Button>
+              </a>
+            </Link>
+          }
+          {
+            type === 'checkout' &&
+            <Link href="/">
+              <a>
+                <Button className="w-100">Back To Restaurants</Button>
+              </a>
+            </Link>
+          }
       </div>
     </div>
   );

@@ -20,6 +20,14 @@ export default function Dishes() {
     if (!restaurantID || !user) Router.push('/');
   }, []);
 
+  if (!restaurantID || !user) {
+    return (
+      <main className='main'>
+        <Loading></Loading>
+      </main>
+    );
+  }
+
   // get restaurant data using GraphQL
   const GET_RESTAURANT_DISHES = gql`
     query($id: ID!) {
@@ -40,12 +48,10 @@ export default function Dishes() {
   `;
 
   // query Strapi database with Apollo
-  const {loading, error, data } = useQuery(GET_RESTAURANT_DISHES, { variables: { id: restaurantID }});
+  const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, { variables: { id: restaurantID }});
   if (loading) return <Loading></Loading>
   if (error) return <Error></Error>
   if (data.restaurant.dishes.length < 1) return <NoData data='restaurants'></NoData>
-
-  console.log('Dishes restaurant dishes: ', data);
 
   let dishesPlusRestaurant = []
   for (let i = 0; i < data.restaurant.dishes.length; i++) {
@@ -67,11 +73,6 @@ export default function Dishes() {
 
   return(
     <main className='main'>
-      {
-        cart.length > 0 ?
-        <Cart /> :
-        null
-      }
       <h1 className="title">Dishes for {data.restaurant.name}</h1>
       <Link href="/">
         <a>
@@ -84,6 +85,11 @@ export default function Dishes() {
         dishesData.length > 0 ?
         <AppCards type="dishes" data={dishesData} handleClick={handleClick}></AppCards> :
         <p className='description'>No dishes were found with that search criteria.</p>
+      }
+      {
+        cart.length > 0 ?
+        <Cart type="order" /> :
+        null
       }
     </main>
   );

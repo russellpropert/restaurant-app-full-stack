@@ -17,13 +17,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   });
 
   return (
-    <ContextProvider>
-      <ApolloProvider client={apolloClient}>
+    <ApolloProvider client={apolloClient}>
+      <ContextProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ApolloProvider>
-    </ContextProvider>
+      </ContextProvider>
+    </ApolloProvider>
   );
 }
 
