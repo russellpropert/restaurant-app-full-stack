@@ -9,7 +9,6 @@ export default function Orders() {
 
   useEffect(() => {
     if (!user) Router.push('/');
-    return
   }, []);
 
   if (!user) {
