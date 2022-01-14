@@ -103,7 +103,7 @@ export default function CheckoutForm() {
 
     if (response.ok) {
       successfulCheckout();
-      Router.push('/success');
+      Router.push('/checkoutsuccess');
       return
     } else {
       setError('Strapi API error: ', response.statusText);

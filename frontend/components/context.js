@@ -52,7 +52,7 @@ export function ContextProvider({ children }) {
         // console.log('Strapi JWT: ', result.data.jwt);
         console.log('Strapi Data: ', result.data);
         setUser(result.data.user);
-        Router.push('/');
+        Router.push('/createaccountsuccess');
       })
       .catch(error => {
         console.warn(error);
