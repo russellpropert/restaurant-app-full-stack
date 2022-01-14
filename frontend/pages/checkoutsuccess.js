@@ -1,8 +1,5 @@
-import { useEffect } from "react";
 import { context } from '../components/context';
-import Router from 'next/router';
 import Link from 'next/link';
-import Loading from '../components/loading';
 import { Button } from 'react-bootstrap';
 
 export default function Success() {
