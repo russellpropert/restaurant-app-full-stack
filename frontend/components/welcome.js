@@ -6,11 +6,11 @@ export default function Welcome() {
       </h1>
 
       <p className="description">
-        This is a student project for the MIT’s Professional Certificate 
+        This is a student project for MIT’s Professional Certificate 
         in Coding: Full Stack Development with MERN.
         This is not a real restaurant app and provides no services.
         The app displays different restaurants to choose from. 
-        You can select menu items from the restaurants and add them to your cart.
+        You can select menu items from the restaurants to add them to your cart.
         Afterwards, you can checkout by using a provided test credit card number.
       </p>
 
