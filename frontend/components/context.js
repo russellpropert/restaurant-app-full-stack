@@ -55,7 +55,7 @@ export function ContextProvider({ children }) {
       })
       .catch(error => {
         console.warn(error);
-        errorResult = { error: true, data: 'See console for error' };
+        errorResult = { error: true, data: 'The username or email you chose is already in use. Please try something else.' };
       })
 
     return errorResult;
