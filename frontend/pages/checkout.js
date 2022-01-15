@@ -33,7 +33,6 @@ export default function Checkout() {
       <Success
         message="Your transaction was successful."
         button="Back to Restaurants"
-        link="/"
       ></Success>
     );
   } else {
