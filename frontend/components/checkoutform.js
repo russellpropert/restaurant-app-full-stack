@@ -61,12 +61,21 @@ export default function CheckoutForm() {
     }
 
     setProcessing(true);
+    if (error) setError('Processing');
 
     // Use elements.getElement to get a reference to the mounted Element.
     const token = await stripe.createToken(
       elements.getElement(CardElement)
     );
     console.log('Stripe createToken: ', token);
+
+    if (token.hasOwnProperty('error')) {
+      setError(token.error.message);
+      setProcessing(false);
+      return;
+    }
+
+    setError(false);
 
     // get Strapi API address
     const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
