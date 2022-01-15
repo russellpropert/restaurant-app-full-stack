@@ -67,7 +67,6 @@ export default function CreateAccount() {
         <Success
           message="Your account was successfully created."
           button="Go To Restaurants"
-          link="/"
         ></Success>   
       </Container>
     );
