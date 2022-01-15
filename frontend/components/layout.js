@@ -59,22 +59,32 @@ export default function Layout({ children }) {
                     {user.email}
                   </DropdownToggle>
                   <DropdownMenu end>
-                    <DropdownItem>
-                      <Link href="/"><a>Restaurants</a></Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link href="/cartpage"><a>Cart</a></Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link href="/account"><a>Account</a></Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link href="/orders"><a>Orders</a></Link>
-                    </DropdownItem>
+                    <Link href="/">
+                      <a>
+                        <DropdownItem>Restaurants</DropdownItem>
+                      </a>
+                    </Link>
+                    <Link href="/cartpage">
+                      <a>
+                        <DropdownItem>Cart</DropdownItem>
+                      </a>
+                    </Link>
+                    <Link href="/account">
+                      <a>
+                        <DropdownItem>Account</DropdownItem>
+                      </a>
+                    </Link>
+                    <Link href="/orders">
+                      <a>
+                        <DropdownItem>Orders</DropdownItem>
+                      </a>
+                    </Link>
                     <DropdownItem divider />
-                    <DropdownItem onClick={logOut}>
-                      Logout
-                    </DropdownItem>
+                    <Link href="/orders">
+                      <a>
+                        <DropdownItem onClick={logOut}>Logout</DropdownItem>
+                      </a>
+                    </Link>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               )
