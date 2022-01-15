@@ -5,7 +5,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { context } from '../components/context';
 import CheckoutForm from '../components/checkoutform';
 import Loading from '../components/loading';
-import Success from '../pages/success';
+import Success from '../components/success';
 
 export default function Checkout() {
   const { user, cart, successfulCheckout } = context();

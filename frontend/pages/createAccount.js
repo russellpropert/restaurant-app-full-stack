@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { context } from '../components/context';
 import Loading from '../components/loading';
-import Success from './success';
+import Success from '../components/success';
 
 export default function CreateAccount() {
   const { user, authenticationLoading, createAccount, googleSignIn } = context();
