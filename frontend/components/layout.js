@@ -92,7 +92,7 @@ export default function Layout({ children }) {
             {
               (!user && !authenticationLoading) && (
                 <>
-                  <Link href="/createAccount"><a className="nav-link">Create Account</a></Link>
+                  <Link href="/createaccount"><a className="nav-link">Create Account</a></Link>
                   <Link href="/login"><a className="nav-link">Login</a></Link>
                 </>
               )

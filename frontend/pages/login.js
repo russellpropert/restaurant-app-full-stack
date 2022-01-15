@@ -69,7 +69,7 @@ export default function Login() {
               </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-              Need an account? <Link href="/createAccount"><a style={{color: "blue"}}>Sign Up</a></Link>
+              Need an account? <Link href="/createaccount"><a style={{color: "blue"}}>Sign Up</a></Link>
             </div>
           </div>
         )
