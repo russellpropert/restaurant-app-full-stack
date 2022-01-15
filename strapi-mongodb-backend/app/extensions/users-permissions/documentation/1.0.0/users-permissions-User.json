@@ -1250,9 +1250,6 @@
                 "type": "string"
               }
             }
-          },
-          "name": {
-            "type": "string"
           }
         }
       },
@@ -1293,9 +1290,6 @@
             "default": false
           },
           "role": {
-            "type": "string"
-          },
-          "name": {
             "type": "string"
           },
           "created_by": {
