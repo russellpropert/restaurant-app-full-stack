@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import Router from 'next/router';
+import { useState, useRef, useEffect } from 'react';
 import { context } from './context';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import Cookies from 'js-cookie';
@@ -8,11 +7,11 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import Cart from '../components/cart';
 import styles from '../styles/Cart.module.css';
 
-export default function CheckoutForm() {
-  const { cart, successfulCheckout } = context();
+export default function CheckoutForm( { handleSuccess }) {
+  const { cart } = context();
   const [error, setError] = useState(false);
-  const [processing, setProcessing] = useState(false)
-  const address = useRef()
+  const [processing, setProcessing] = useState(false);
+  const address = useRef();
   const city = useRef();
   const state = useRef();
 
@@ -61,12 +60,21 @@ export default function CheckoutForm() {
     }
 
     setProcessing(true);
+    if (error) setError('Processing');
 
     // Use elements.getElement to get a reference to the mounted Element.
     const token = await stripe.createToken(
       elements.getElement(CardElement)
     );
     console.log('Stripe createToken: ', token);
+
+    if (token.hasOwnProperty('error')) {
+      setError(token.error.message);
+      setProcessing(false);
+      return;
+    }
+
+    setError(false);
 
     // get Strapi API address
     const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
@@ -86,35 +94,34 @@ export default function CheckoutForm() {
       })
     })
 
-    console.log(
-      {
-        method: 'POST',
-        headers: strapiToken && { Authorization: `Bearer ${strapiToken}` },
-        body: {
-          amount: total,
-          dishes: cart,
-          address: address.current.value,
-          city: city.current.value,
-          state: state.current.value,
-          token: token.token.id
-        }
-      }
-    );
+    // output post data for testing
+    // console.log(
+    //   {
+    //     method: 'POST',
+    //     headers: strapiToken && { Authorization: `Bearer ${strapiToken}` },
+    //     body: {
+    //       amount: total,
+    //       dishes: cart,
+    //       address: address.current.value,
+    //       city: city.current.value,
+    //       state: state.current.value,
+    //       token: token.token.id
+    //     }
+    //   }
+    // );
 
     if (response.ok) {
-      successfulCheckout();
-      Router.push('/checkoutsuccess');
-      return
+      setProcessing(false);
+      handleSuccess();
     } else {
+      setProcessing(false);
       setError('Strapi API error: ', response.statusText);
     }
-    setProcessing(false);
   };
 
-  return (   
+    return (   
     <>
       <Cart type="checkout" />
-
       <div className={`${styles.cartCard} w-100`} style={{ maxWidth: "500px"}}>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-4" id="username">
@@ -157,8 +164,6 @@ export default function CheckoutForm() {
           { error && <Alert variant="danger">{error}</Alert> }
         </Form>
       </div>
-    </> 
-
-
+    </>
   );
 }

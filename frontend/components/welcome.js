@@ -16,7 +16,7 @@ export default function Welcome() {
 
       <div className="grid">
 
-        <a href="/createAccount" className="custom-card">
+        <a href="/createaccount" className="custom-card">
           <h2>Create Account</h2>
           <p>Just getting started? Create your account here.</p>
         </a>
