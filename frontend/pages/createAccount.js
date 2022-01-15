@@ -56,7 +56,7 @@ export default function CreateAccount() {
     if (result.error) {
       setError(result.data);
     } else {
-      setError();
+      setError(false);
     }
     setButtonDisable(false);
   }
@@ -84,7 +84,7 @@ export default function CreateAccount() {
                   <h2 className="text-center mb-4">Create An Account</h2>
                   <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-4" id="username">
-                      <Form.Label>Name</Form.Label>
+                      <Form.Label>Username</Form.Label>
                       <Form.Control type="username" ref={usernameRef} autoComplete="username" required></Form.Control>
                     </Form.Group>
                     <Form.Group className="mb-4" id="email">
