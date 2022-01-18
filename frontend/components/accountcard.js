@@ -20,9 +20,9 @@ export default function AccountCard({ user }) {
 
   // query Strapi database with Apollo
   const { loading, error, data } = useQuery(GET_USER, { variables: { id: user.id } });
-  if (loading) return <Loading></Loading>
-  if (error) return <Error></Error>
-  if (data.user.length < 1) return <NoData data='users'></NoData>
+  if (loading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
+  if (data.user.length < 1) return <NoData data='users'></NoData>;
 
   console.log(data);
 

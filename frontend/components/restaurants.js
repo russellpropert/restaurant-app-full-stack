@@ -29,9 +29,9 @@ export default function Restaurants() {
 
   // query Strapi database with Apollo
   const { loading, error, data } = useQuery(GET_RESTAURANTS);
-  if (loading) return <Loading></Loading>
-  if (error) return <Error></Error>
-  if (data.restaurants.length < 1) return <NoData data='restaurants'></NoData>
+  if (loading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
+  if (data.restaurants.length < 1) return <NoData data='restaurants'></NoData>;
 
   // filter data with searchQuery
   let restaurantData;
