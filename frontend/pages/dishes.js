@@ -49,9 +49,9 @@ export default function Dishes() {
 
   // query Strapi database with Apollo
   const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, { variables: { id: restaurantID }});
-  if (loading) return <Loading></Loading>
-  if (error) return <Error></Error>
-  if (data.restaurant.dishes.length < 1) return <NoData data='restaurants'></NoData>
+  if (loading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
+  if (data.restaurant.dishes.length < 1) return <NoData data='restaurants'></NoData>;
 
   let dishesPlusRestaurant = []
   for (let i = 0; i < data.restaurant.dishes.length; i++) {

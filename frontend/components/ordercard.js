@@ -22,9 +22,9 @@ export default function OrdersCard({ user }) {
 
   // query Strapi database with Apollo
   const { loading, error, data } = useQuery(GET_ORDERS, { variables: { user: user.id } });
-  if (loading) return <Loading></Loading>
-  if (error) return <Error></Error>
-  if (data.orders.length < 1) return <NoData data='orders'></NoData>
+  if (loading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
+  if (data.orders.length < 1) return <NoData data='orders'></NoData>;
 
   const userOrderData = [...data.orders].reverse();
   console.log(userOrderData);
