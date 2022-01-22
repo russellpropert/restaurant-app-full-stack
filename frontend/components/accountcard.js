@@ -30,11 +30,11 @@ export default function AccountCard({ user }) {
     <div className="plain-card" style={{ width: "100%", maxWidth: "500px", textAlign: "center"}}>
       <h2 style={{ textAlign: "center" }}>Your Info</h2>
       <p><b>User Account ID:</b></p>
-      <p style={{ marginBottom: "20px"}}>{user.id}</p>
+      <p style={{ marginBottom: "20px"}}>{data.user.id}</p>
       <p><b>Username:</b></p>
-      <p style={{ marginBottom: "20px"}}>{user.username}</p>
+      <p style={{ marginBottom: "20px"}}>{data.user.username}</p>
       <p><b>Email:</b></p>
-      <p style={{ marginBottom: "20px"}}>{user.email}</p>
+      <p style={{ marginBottom: "20px"}}>{data.user.email}</p>
     </div>
   );
 }
