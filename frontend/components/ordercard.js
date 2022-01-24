@@ -17,7 +17,7 @@ export default function OrdersCard({ user }) {
         amount
         datetime
       }
-}
+    }
   `;
 
   // query Strapi database with Apollo
