@@ -1,11 +1,15 @@
 # restaurant-app-full-stack
-This was my capstone project for my full stack enginering certificate from MIT xPro. 
+This is the capstone project for my full stack engineering certificate from MIT xPro. 
 
-It is a restaurant app that has the following features.
+It is a restaurant app with the following features.
 * React frontend
-* Strapi/MongoDB backend with a GraphQL API
-* Google authenication using Firbase
+* Strapi/MongoDB backend
+* GraphQL API
+* Google authentication using Firebase
 * Email authentication using Strapi
-* Credit cart checkout with provided a test card number using Stripe
+* Credit cart checkout with a provided test card number using Stripe
+* Select multiple menu items from multiple restaurants
+* Cart checkout page
+* View past orders
 
 This app is currently running at https://russellpropert.com.
