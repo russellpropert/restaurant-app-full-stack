@@ -137,12 +137,11 @@ export default function CheckoutForm( { handleSuccess }) {
             <Form.Control type="text" ref={state} autoComplete="address-level1" required></Form.Control>
           </Form.Group>
           <p style={{ fontSize: "1rem", textAlign: "center", marginBottom: "10px" }}>
-            This project is in test mode. Do not use a real credit card number. 
-            Enter a series of 424242… for the card, date, CVC, and zip. 
-            The end result will look like this.
+            This project is in test mode. Do not use a real credit card. 
+            Enter this for the card number, expiration date, CVC, and zip code.
           </p>
           <p style={{ fontSize: "1.2rem", textAlign: "center", marginBottom: "10px" }}>
-            4242 4242 4242 4242 04/24 242 42424
+            4242 4242 4242 4242 01/74 000 00000
           </p>
           <div style={{
             border: "1px solid black", 
