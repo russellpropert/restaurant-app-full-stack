@@ -124,6 +124,9 @@ export default function CheckoutForm( { handleSuccess }) {
       <Cart type="checkout" />
       <div className={`${styles.cartCard} w-100`} style={{ maxWidth: "500px"}}>
         <Form onSubmit={handleSubmit}>
+          <p style={{ fontSize: "1rem", textAlign: "center", marginBottom: "10px"}}>
+            Please make up an address. Anything can be entered here.
+          </p>
           <Form.Group className="mb-4" id="username">
             <Form.Label>Address</Form.Label>
             <Form.Control type="text" ref={address} autoComplete="street-address" required></Form.Control>
