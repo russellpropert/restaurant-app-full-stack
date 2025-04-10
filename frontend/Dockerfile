@@ -1,5 +1,5 @@
-FROM node:16
-ENV PORT 3000
+FROM node:23-slim
+ENV PORT=3000
 RUN mkdir -p /app
 WORKDIR /app
 COPY package*.json .
@@ -11,4 +11,4 @@ COPY public/ public/
 COPY styles/ styles/
 RUN npm run build
 EXPOSE 3000
-CMD "npm" "run" "start"
+CMD ["npm", "run", "start"]
