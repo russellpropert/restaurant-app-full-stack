@@ -1,6 +1,12 @@
-version: "3"
-
 services:
+  front-end:
+    image: russellpropert/restaurant-app-front-end
+    container_name: restaurant-app-front-end
+    restart: unless-stopped
+    networks:
+      - strapi-app-network
+    ports:
+      - "3001:3000"
   strapiexample:
     image: strapi/strapi
     container_name: strapiexample
@@ -31,8 +37,6 @@ services:
       - strapi-app-network
     volumes:
       - strapidata:/data/db
-    ports:
-      - "27017:27017"
 
 networks:
   strapi-app-network:
