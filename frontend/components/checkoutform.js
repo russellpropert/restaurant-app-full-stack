@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { context } from './context';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import Cookies from 'js-cookie';
